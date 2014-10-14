@@ -1,3 +1,3 @@
-SELECT ROUND(MONTHS_BETWEEN(sysdate,hiredate))
+SELECT TRUNC(MONTHS_BETWEEN(sysdate,hiredate))
 FROM employees
 /
