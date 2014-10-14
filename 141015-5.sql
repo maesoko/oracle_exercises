@@ -1,0 +1,3 @@
+SELECT LAST_DAY(sysdate)
+FROM DUAL
+/
