@@ -136,3 +136,49 @@ sal、deptno列を取り出すスクリプト(141009-1.sql)
 (141009-4.sql)
 	5. employees表でcommが「NULL」でないempno、ename、sal、comm列を取り出す<br />
 スクリプト(141009-5.sql)
+
+1. 2014/10/14
+
+	1. employees表でyomiが「TAKAHASHI」であるempno, ename, yomi列を小文字で格納されている<br />
+ため比較時に取得データを大文字に変換すること(141014-1.sql)
+	1. employees表からyomi列を取り出し、これを先頭のみ大文字に変換する。さらに、<br />
+「@std.it-college.ac.jp」と結合するスクリプト(141014-2.sql)
+	1. 文字列「Oracle Server」の２文字目から３文字取得および同じ文字列の２文字目<br />
+以降を取得するスクリプト(141014-3.sql)
+	1. 文字列「Oracle Server」の「Server」を「Master」に変換するスクリプト(141014-4.sql)
+	1. employees表からempno, ename, yomi列及びyomiの長さを取得するスクリプト(141014-5.sql)
+
+1. 2014/10/15
+
+	1. 以下のように日付の表示書式と表示言語を変更<br />
+alter session set nls_date_format = 'DD-MON-RR';<br />
+alter session set nls_date_language = 'AMERICAN';<br /> 
+その後、employees表からdeptnoが「10」のename, hiredate, を取り出すスクリプト(141015-1.sql)<br />
+「[NLS関連初期化パラメータ](http://www.shift-the-oracle.com/config/nlsparameter.html)」
+	1. 以下のように日付の表示書式と表示言語を元に戻す<br />
+alter session set nls_date_format = 'RR-MM-DD';<br />
+alter session set nls_date_language = 'JAPANESE';<br /> 
+その後、employees表からdeptnoが「10」のename, hiredate, を取り出すスクリプト(141015-2.sql)<br />
+	1. employees表からdeptnoが「10」のename, hiredate, hiredateの90日後、hiredateの90日前<br />
+を表示するスクリプト(141015-3.sql)
+	1. employees表からhiredateから今日までの経過した月数を小数点以下を切り上げて表示する<br />
+スクリプト(141015-4.sql)
+	1. 今月の最終日を表示するスクリプト(141015-5.sql)
+
+1. 2014/10/16
+
+	1. 現在日時を「2014-10-11 12:16:10」の書式で文字列に変換して表示するスクリプト<br />
+(141016-1.sql)
+	1. 現在日時を「2014年10月11日(土曜日)」の書式で文字列に変換して表示するスクリプト<br />
+(141016-2.sql)
+	1. 以下のように日付の表示書式と表示言語を変更<br />
+alter session set nls_date_format = 'DD-MON-RR';<br />
+alter session set nls_date_language = 'AMERICAN';<br /> 
+その後、employees表からenameとhiredate（「15TH of October」の書式で変換）<br />
+を取り出すスクリプト(141016-3.sql)<br />
+	1. 以下のように日付の表示書式と表示言語を元に戻す<br />
+alter session set nls_date_format = 'RR-MM-DD';<br />
+alter session set nls_date_language = 'JAPANESE';<br /> 
+その後、文字列「2011年01月01日」を日付値に変換するスクリプト(141016-4.sql)<br />
+	1. 文字列「\5,000,000」を数値の「5000000」に変換し、12で割るスクリプト<br />
+(141016-5.sql)
