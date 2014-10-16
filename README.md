@@ -161,7 +161,7 @@ alter session set nls_date_language = 'JAPANESE';<br />
 その後、employees表からdeptnoが「10」のename, hiredate, を取り出すスクリプト(141015-2.sql)<br />
 	1. employees表からdeptnoが「10」のename, hiredate, hiredateの90日後、hiredateの90日前<br />
 を表示するスクリプト(141015-3.sql)
-	1. employees表からhiredateから今日までの経過した月数を小数点以下を切り上げて表示する<br />
+	1. employees表からhiredateから今日までの経過した月数を小数点以下を切り捨てて表示する<br />
 スクリプト(141015-4.sql)
 	1. 今月の最終日を表示するスクリプト(141015-5.sql)
 
@@ -180,5 +180,30 @@ alter session set nls_date_language = 'AMERICAN';<br />
 alter session set nls_date_format = 'RR-MM-DD';<br />
 alter session set nls_date_language = 'JAPANESE';<br /> 
 その後、文字列「2011年01月01日」を日付値に変換するスクリプト(141016-4.sql)<br />
-	1. 文字列「\5,000,000」を数値の「5000000」に変換し、12で割るスクリプト<br />
+	1. 文字列「￥5,000,000」を数値の「5000000」に変換し、12で割るスクリプト<br />
 (141016-5.sql)
+
+1. 2014/10/21
+
+	1. employees表からename, sal, comm, sal+comm（commがnullの場合はNVL関数を使用して0と見なす）を表示するスクリプト(141021-1.sql)
+	1. employees表からename, sal, comm, sal+comm（commがnullの場合はNVL2関数を使用して0と見なす）を表示するスクリプト(141021-2.sql)
+	1. employees表からename, sal, comm, sal+comm（commがnullの場合はCOALESCE関数を使用して0と見なす）を表示するスクリプト(141021-3.sql)
+	1. employees表からenameとCASE式を使って、deptnoが10の時はsalを1.1倍、20の時は1.2倍、それ以外はsalを表示する。この時、計算結果の別名として、NEW_SALを表示する(141021-4.sql)
+	1. employees表からenameとDECODE関数を使って、deptnoが10の時はsalを1.1倍、20の時は1.2倍、それ以外はsalを表示する。この時、計算結果の別名として、NEW_SALを表示する(141021-5.sql)
+
+1. 2014/10/22
+
+	1. employees表からsalの平均と合計を表示するスクリプト(141022-1.sql)
+	1. employees表からdeptno毎のdeptno、人数、salの平均を表示するスクリプト(141022-2.sql)
+	1. employees表からdeptno、job毎のdeptno、job、人数、salの平均を表示するスクリプト(141022-3.sql)
+	1. employees表からdeptno毎のsalの平均の最大値を表示するスクリプト(141022-4.sql)
+	1. employees表からdeptnoとjobの組み合わせ毎のdeptno、job、人数、salの平均を表示する。但し、人数が２人以上の組み合わせのみ表示する(141022-5.sql)
+
+1. 2014/10/23
+
+	1. employees表とdepartments表を結合(deptno)し、empno, ename, dnameを表示するスクリプト(141023-1.sql)
+	1. employees表とdepartments表を結合(deptno)し、deptnoが10または20のempno, ename, dnameを表示するスクリプト(141023-2.sql)
+	1. ord表、customers表およびemployees表の３つの表を結合(orders.custno, customers.custno, orders.salesman_no, employees.empno)し、ordno, date_ordered, cname, enameを表示するスクリプト(141023-3.sql)
+	1. employees表とsalgrades表を非等価結合(employees.sal, salgrades.losal, salgrades.hisal)し、empno, ename, sal, gradeを表示するスクリプト(141023-4.sql)
+	1. employees表を自己結合(empno, mgr)して、empno, enameおよび上司のempno, enameを表示するスクリプト(141023-5.sql)
+	1. （応用問題）上記の自己結合で、外部結合を用い、「社長」のデータも取り出せる様に修正したスクリプト(141023-6.sql)
