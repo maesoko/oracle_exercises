@@ -207,3 +207,29 @@ alter session set nls_date_language = 'JAPANESE';<br />
 	1. employees表とsalgrades表を非等価結合(employees.sal, salgrades.losal, salgrades.hisal)し、empno, ename, sal, gradeを表示するスクリプト(141023-4.sql)
 	1. employees表を自己結合(empno, mgr)して、empno, enameおよび上司のempno, enameを表示するスクリプト(141023-5.sql)
 	1. （応用問題）上記の自己結合で、外部結合を用い、「社長」のデータも取り出せる様に修正したスクリプト(141023-6.sql)
+
+1. 2014/10/28
+
+	1. USING句を使用し、employees表とdepartments表を結合(deptno)し、empno, ename, deptno, dnameを表示するスクリプト(141028-1.sql)
+	1. (準備)employees表に１件データを追加する<br />
+insert into employees(empno, ename, deptno) values(1015, '山口', null);<br />
+employees表とdepartments表を結合(deptno)し、empno, ename, deptno, dnameを表示する。この時、employees表のdeptnoがnullのデータも取り出せるスクリプト(141028-2.sql)
+	1. employees表とdepartmentsを結合(deptno)し、empno, ename, deptno, dnameを表示する。この時、employees表でだれも割り当られていないdepartments表の部門も取り出せるスクリプト(141028-3.sql)
+	1. employees表とdepartmentsを結合(deptno)し、empno, ename, deptno, dnameを表示する。この時、employees表のdeptnoがnullのデータ、およびemployees表でだれも割り当られていないdepartments表の部門も取り出せるスクリプト(141028-4.sql)
+	1. employees表とdepartments表をクロス結合し、empno, ename, dnameを表示するスクリプト(141028-5.sql)
+
+1. 2014/10/29
+
+	1. employees表からempnoが「1003」のsal（employees表から副問い合わせ)以上のempno, ename, salを表示するスクリプト(141029-1.sql)
+	1. employees表からdnameが「営業」（departments表から副問い合わせ）のempno, ename, deptnoを表示するスクリプト(141029-2.sql)
+	1. employees表からsalがempnoの「1003」以上（employees表から副問い合わせ）、かつdnameが「営業」（departments表から副問い合わせ)のempno, ename, sal, deptnoを表示するスクリプト(141029-3.sql)
+	1. employees表とdepartments表を結合(deptno)し、deptno, dname毎のsalの平均が全体の平均（employees表から副問い合わせ）以上であるdeptno, dname, avg(sal)を表示するスクリプト(141029-4.sql)
+	1. employees表を自己結合(empno, mgr)し、enameが「山田」または「伊藤」の上司(mgr)(employees表から副問い合わせ)のempno, enameおよび上司のenameを表示するスクリプト(141029-5.sql)
+
+1. 2014/10/30
+
+	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、重複した行を排除して戻すスクリプト(141030-1.sql)
+	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、重複した行も含めて戻すスクリプト(141030-2.sql)
+	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、共通した行だけ戻すスクリプト(141030-3.sql)
+	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、１つめのselect文の結果のうち、２つ目問い合わせ結果にない行を戻すスクリプト(141030-4.sql)
+	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、重複した行を排除して戻す。この時、empnoの昇順で並べて表示するスクリプト(141030-5.sql)

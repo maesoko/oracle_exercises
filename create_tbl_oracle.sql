@@ -1,38 +1,17 @@
-  　 /* 実習用データ作成スクリプト      　    　  　                    */
-  　/* SYSTEMユーザー(管理者ユーザー)で実行してください  　            */
-   /* 評価版をインストールしたテスト環境などで使用してください。      */
-  /* (本番環境では使用しないでください。)                            */
- /* 次のコマンドをSYSTEMユーザーで実行すると実習環境を削除できます。*/ 
-/* DROP USER ora01 CASCADE;                                        */
-
 SPOOL setup.log
 PROMPT
 PROMPT "Clean Up ..."
 PROMPT "初回実行時はエラーが発生しますが問題ありません。"
---DROP USER ora01 CASCADE;
-
---PROMPT
---PROMPT "ora01" User Creating...
---CREATE USER ora01
---IDENTIFIED BY oracle;
---GRANT CONNECT,RESOURCE,UNLIMITED TABLESPACE TO ora01;
---GRANT CREATE SYNONYM TO ora01;
---GRANT CREATE ROLE TO ora01;
---GRANT CREATE VIEW TO ora01;
-
---PROMPT
---PROMPT "ora01" 's DATA Creating...
---CONNECT ora01/oracle
 
 /* Create Table for 実習 */
 
-drop TABLE customers;
+drop TABLE ord_details;
+drop TABLE orders;
 drop TABLE employees;
 drop TABLE departments;
-drop TABLE salgrades;
+drop TABLE customers;
 drop TABLE products;
-drop TABLE orders;
-drop TABLE ord_details;
+drop TABLE salgrades;
 
 CREATE TABLE departments
        (deptno NUMBER(2) CONSTRAINT pk_dept PRIMARY KEY,
