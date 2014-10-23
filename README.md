@@ -194,10 +194,10 @@ alter session set nls_date_language = 'JAPANESE';<br />
 1. 2014/10/22
 
 	1. employees表からsalの平均と合計を表示するスクリプト(141022-1.sql)
-	1. employees表からdeptno毎のdeptno、人数、salの平均を表示するスクリプト(141022-2.sql)
-	1. employees表からdeptno、job毎のdeptno、job、人数、salの平均を表示するスクリプト(141022-3.sql)
+	1. employees表からdeptno毎のdeptno、人数、salの平均を表示する。この時、deptnoの昇順で、ソートする(141022-2.sql)
+	1. employees表からdeptno、job毎のdeptno、job、人数、salの平均を表示する。この時、deptnoの昇順で、ソートする。(141022-3.sql)
 	1. employees表からdeptno毎のsalの平均の最大値を表示するスクリプト(141022-4.sql)
-	1. employees表からdeptnoとjobの組み合わせ毎のdeptno、job、人数、salの平均を表示する。但し、人数が２人以上の組み合わせのみ表示する(141022-5.sql)
+	1. employees表からdeptnoとjobの組み合わせ毎のdeptno、job、人数、salの平均を表示する。但し、人数が２人以上の組み合わせのみ表示する。この時、deptnoの昇順で、ソートする。(141022-5.sql)
 
 1. 2014/10/23
 
@@ -233,3 +233,12 @@ employees表とdepartments表を結合(deptno)し、empno, ename, deptno, dname�
 	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、共通した行だけ戻すスクリプト(141030-3.sql)
 	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、１つめのselect文の結果のうち、２つ目問い合わせ結果にない行を戻すスクリプト(141030-4.sql)
 	1. employees表からdeptnoが「10」または「20」のdeptno, empno, enameを表示するselect文とdeptnoが「20」または「30」のdeptno, empno, enameを表示するselect文の問い合わせ結果を連結し、重複した行を排除して戻す。この時、empnoの昇順で並べて表示するスクリプト(141030-5.sql)
+
+1. 2014/11/04
+
+	1. departments表にdeptno「50」、dname「教育」、loc「大手町」で、１行追加し、select文を実行し、正しく追加できていることを確認。その後、追加したデータを削除し、削除できていることを確認(141104-1.sql)
+	1. departments表にdeptno「60」、dname「経理」、locはnullで、１行追加し、select文を実行し、ただしく追加できていること確認。その後、追加したデータを削除し、削除できていることを確認（141104-2.sql)
+	1. employees表にempno, ename, hiredateを置換変数で入力、その他はnullで１行追加しselect文を実行し、正しく追加できていること確認。その後、追加したデータを削除し、削除できていることを確認(141104-3.sql)
+	1. （事前の操作）departments表からdept_copy表を作成。<br />
+create table dept_copy as select * from departments where 0 = 1;<br />
+departments表からselect文を使用してデータを取得し、deptno「deptno+1」、dname「dname」、loc「loc」データを追加し、select文を実行し、正しく追加できていることを確認(141104-4.sql)
