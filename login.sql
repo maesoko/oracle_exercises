@@ -1,6 +1,7 @@
 DEFINE _EDITOR="/usr/bin/vim"
 set null (null)
 set  pages 30
+set linesize 200
 col first_name for a15
 col last_name for a15
 col name for a15
