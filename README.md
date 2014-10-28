@@ -10,8 +10,9 @@ $ sudo aptitude install libaio1<br /><br />
 $ sudo aptitude install rlwrap<br /><br />
 1. 「[oracle.2014](https://github.com/KimiyukiYamauchi/oracle.2014.git)」を「git clone」
 <br />$ git clone https://github.com/KimiyukiYamauchi/oracle.2014.git (任意のディレクトリ名)<br /><br />
+1. cloneしたリポジトリに移動<br /><br />
 2. リモートリポジトリ「origin」を別の名前に変える
-<br />$ git remote rename origin  (任意の別名)<br /><br />
+<br />$ git remote rename origin  oracle.2014<br /><br />
 3. 各自のGithubに演習をアップするためのリポジトリを作成<br /><br />
 4. 上で作成したリモートリポジトリに「origin」と名前をつける
 <br />$ git remote add origin  (各自のリモートリポジトリのURL)<br /><br />
@@ -83,7 +84,7 @@ SQL> select tname from tab;
 	* ひな形などの最新を入手する場合、
 
 		1. 「[oracle.2014](https://github.com/KimiyukiYamauchi/oracle.2014.git)」を「git pull」
-<br />$ git pull (自分がつけた別名) master<br /><br />
+<br />$ git pull oracle.2014 master<br /><br />
 
 ## 演習問題
 
@@ -203,7 +204,7 @@ alter session set nls_date_language = 'JAPANESE';<br />
 
 	1. employees表とdepartments表を結合(deptno)し、empno, ename, dnameを表示するスクリプト(141023-1.sql)
 	1. employees表とdepartments表を結合(deptno)し、deptnoが10または20のempno, ename, dnameを表示するスクリプト(141023-2.sql)
-	1. ord表、customers表およびemployees表の３つの表を結合(orders.custno, customers.custno, orders.salesman_no, employees.empno)し、ordno, date_ordered, cname, enameを表示するスクリプト(141023-3.sql)
+	1. orders表、customers表およびemployees表の３つの表を結合(orders.custno, customers.custno, orders.salesman_no, employees.empno)し、ordno, date_ordered, cname, enameを表示するスクリプト(141023-3.sql)
 	1. employees表とsalgrades表を非等価結合(employees.sal, salgrades.losal, salgrades.hisal)し、empno, ename, sal, gradeを表示するスクリプト(141023-4.sql)
 	1. employees表を自己結合(empno, mgr)して、empno, enameおよび上司のempno, enameを表示するスクリプト(141023-5.sql)
 	1. （応用問題）上記の自己結合で、外部結合を用い、「社長」のデータも取り出せる様に修正したスクリプト(141023-6.sql)
@@ -242,3 +243,34 @@ employees表とdepartments表を結合(deptno)し、empno, ename, deptno, dname�
 	1. （事前の操作）departments表からdept_copy表を作成。<br />
 create table dept_copy as select * from departments where 0 = 1;<br />
 departments表からselect文を使用してデータを取得し、deptno「deptno+1」、dname「dname」、loc「loc」データを追加し、select文を実行し、正しく追加できていることを確認(141104-4.sql)
+
+1. 2014/11/05
+
+	1. （事前の操作）employees表からemp_copy表を作成。<br />
+create table emp_copy as select * from employees;<br />
+deptnoがnullのデータについて、deptno「10」を設定し、正しく更新出来ていることを確認(141105-1.sql)
+	1. emp_copy表のempnoが「1012」のデータについて、ename「林」、depto「20」を設定（更新前は「吉田」、「30」）し、正しく更新できていることを確認(141105-2.sql)
+	1. emp_copy表のempnoが「1013」および「1014」のデータについて、deptno「null」を設定し、正しく更新できていることを確認(141105-3.sql)
+	1. emp_copy表のempnoがemployees表のenameが「加藤」に等しいデータ(副問い合わせ)について、jobにemployees表のempnoが「1010」のjob(副問い合わせ)、salにemployees表のempnoが「1010」のsal(副問い合わせ)をそれぞれ設定し、正しく更新出来ていることを確認(141105-4.sql)
+
+1. 2014/11/06
+
+	1. 以下の操作を行うスクリプト(20141106-1.sql)
+		1. dept_copy表にdeptno「50」、dname「教育」、loc「大手町」を追加
+		1. dept_copy表にdeptno「60」、dname「システム」、loc「横浜」を追加
+		1. select文で、上記の追加が正常に行われていることを確認
+		1. 上記の追加の取消処理
+		1. select文で、上記の取消処理が正常に行われていることを確認		
+		1. dept_copy表にdeptno「50」、dname「教育」、loc「大手町」を追加
+		1. dept_copy表にdeptno「60」、dname「システム」、loc「横浜」を追加
+		1. select文で、上記の追加が正常に行われていることを確認
+		1. 上記の追加の確定処理
+		1. 上記の追加の取消処理
+		1. select文で、上記の確定処理後の取消処理が無効であることを確認		
+	1. 以下の操作を行うスクリプト(20141106-2.sql)
+		1. dept_copy表にdeptno「70」、dname「海外」、loc「浦添」を追加
+		1. セーブポイントを設定
+		1. dept_copy表にdeptno「80」、dname「製造」、loc「うるま」を追加
+		1. select文で、上記のdeptno「70」、「80」の両方の追加が正常に行われていることを確認
+		1. セーブポイントまで、取消処理
+		1. select文で、deptno「70」のみ追加されていること(deptno「80」の追加が取り消されていること)
