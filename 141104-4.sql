@@ -6,3 +6,8 @@ FROM departments
 /
 SELECT * FROM dept_copy
 /
+DELETE FROM dept_copy
+WHERE deptno IN(SELECT deptno+1 FROM departments)
+/
+SELECT * FROM dept_copy
+/
