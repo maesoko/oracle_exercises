@@ -4,3 +4,7 @@ WHERE empno = 1012
 /
 SELECT * FROM emp_copy WHERE empno = 1012
 /
+ROLLBACK
+/
+SELECT * FROM emp_copy WHERE empno = 1012
+/
