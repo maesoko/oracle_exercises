@@ -242,16 +242,16 @@ employees表とdepartments表を結合(deptno)し、empno, ename, deptno, dname�
 	1. employees表にempno, ename, hiredateを置換変数で入力、その他はnullで１行追加しselect文を実行し、正しく追加できていること確認。その後、追加したデータを削除し、削除できていることを確認(141104-3.sql)
 	1. （事前の操作）departments表からdept_copy表を作成。<br />
 create table dept_copy as select * from departments where 0 = 1;<br />
-departments表からselect文を使用してデータを取得し、deptno「deptno+1」、dname「dname」、loc「loc」データを追加し、select文を実行し、正しく追加できていることを確認(141104-4.sql)
+departments表からselect文を使用してデータを取得し、deptno「deptno+1」、dname「dname」、loc「loc」データを追加し、select文を実行し、正しく追加できていることを確認。その後、追加したデータを削除し、削除できていることを確認(141104-4.sql)
 
 1. 2014/11/05
 
 	1. （事前の操作）employees表からemp_copy表を作成。<br />
 create table emp_copy as select * from employees;<br />
-deptnoがnullのデータについて、deptno「10」を設定し、正しく更新出来ていることを確認(141105-1.sql)
-	1. emp_copy表のempnoが「1012」のデータについて、ename「林」、depto「20」を設定（更新前は「吉田」、「30」）し、正しく更新できていることを確認(141105-2.sql)
-	1. emp_copy表のempnoが「1013」および「1014」のデータについて、deptno「null」を設定し、正しく更新できていることを確認(141105-3.sql)
-	1. emp_copy表のempnoがemployees表のenameが「加藤」に等しいデータ(副問い合わせ)について、jobにemployees表のempnoが「1010」のjob(副問い合わせ)、salにemployees表のempnoが「1010」のsal(副問い合わせ)をそれぞれ設定し、正しく更新出来ていることを確認(141105-4.sql)
+deptnoがnullのデータについて、deptno「10」を設定し、正しく更新出来ていることを確認。その後、ロールバックして、更新が取り消されていること確認。(141105-1.sql)
+	1. emp_copy表のempnoが「1012」のデータについて、ename「林」、depto「20」を設定（更新前は「吉田」、「30」）し、正しく更新できていることを確認。その後、ロールバックして、更新が取り消されていること確認。(141105-2.sql)
+	1. emp_copy表のempnoが「1013」および「1014」のデータについて、deptno「null」を設定し、正しく更新できていることを確認。その後、ロールバックして、更新が取り消されていること確認。(141105-3.sql)
+	1. emp_copy表のempnoがemployees表のenameが「加藤」に等しいデータ(副問い合わせ)について、jobにemployees表のempnoが「1010」のjob(副問い合わせ)、salにemployees表のempnoが「1010」のsal(副問い合わせ)をそれぞれ設定し、正しく更新出来ていることを確認。その後、ロールバックして、更新が取り消されていること確認。(141105-4.sql)
 
 1. 2014/11/06
 
