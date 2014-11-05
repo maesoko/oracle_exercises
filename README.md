@@ -274,3 +274,22 @@ deptnoがnullのデータについて、deptno「10」を設定し、正しく�
 		1. select文で、上記のdeptno「70」、「80」の両方の追加が正常に行われていることを確認
 		1. セーブポイントまで、取消処理
 		1. select文で、deptno「70」のみ追加されていること(deptno「80」の追加が取り消されていること)
+
+1. 2014/11/11
+
+	1. 以下の操作を行うスクリプト(141111-1.sql)
+		1. dept1表の作成
+			1. deptno, number(4), 主キー制約, 制約名：dept1_deptno_pk
+			1. dname varchar2(10), not null制約
+			1. loc, varchar2(10)
+		1. 重複するdeptnoのデータを追加し、一意制約違反が発生すること
+		1. dnameがnullのデータを追加し、NULLは追加できない旨の制約違反が発生すること
+	1. 以下の操作を行うスクリプト(141111-2.sql)
+		1. emp1表の作成
+			1. empno, number(4), 主キー制約, 制約名：emp1_empno_pk
+			1. ename, varchar2(10), not null制約, 制約名：emp1_ename_nn
+			1. deptno, number(4), dept1(deptno)への外部キー（参照整合性）制約, 制約名：emp1_dept1_deptno_fk
+		1. 重複するempnoのデータを追加し、一意制約違反が発生すること
+		1. enameがnullのデータを追加し、nullは追加できない旨の制約違反が発生すること
+		1. deptnoにdept1表のdeptnoに存在しないデータを追加し、参照整合性制約違反が反省すること
+		
