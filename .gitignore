@@ -1,5 +1,4 @@
 *.swp
-*.sh
-/script
+*.class
 setup.log
 afiedt.buf

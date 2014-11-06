@@ -20,3 +20,4 @@ col job_title for a20
 col email for a10
 col region for a4
 col dname for a20
+col tname for a20
