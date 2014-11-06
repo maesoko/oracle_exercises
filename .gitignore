@@ -2,3 +2,4 @@
 *.class
 setup.log
 afiedt.buf
+*.sh
