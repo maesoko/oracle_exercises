@@ -16,3 +16,7 @@ VALUES (101, NULL, 100)
 INSERT INTO emp1(empno, ename, deptno)
 VALUES (102, '前底', 101)
 /
+DROP TABLE emp1
+/
+DROP TABLE dept1
+/
