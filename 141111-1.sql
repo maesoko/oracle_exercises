@@ -12,3 +12,5 @@ VALUES (100, 'システム', '那覇')
 INSERT INTO dept1(deptno, dname, loc)
 VALUES (101, NULL, '那覇')
 /
+DROP TABLE dept1
+/
