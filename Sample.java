@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Sample {
-	private String _user = "hr";
-	private String _pass = "hr";
+	private String _user = "s13012";
+	private String _pass = "password";
 	private String _host = "172.16.40.4";
 	private String _sid = "db11";
 	
@@ -32,7 +32,7 @@ public class Sample {
 
 			st = conn.createStatement();
 
-			rs = st.executeQuery("select DEPARTMENT_ID, DEPARTMENT_NAME from DEPARTMENTS");
+			rs = st.executeQuery("select deptno, dname from DEPARTMENTS");
 
 			while(rs.next()){
 				String dept_id = rs.getString(1);
