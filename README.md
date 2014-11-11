@@ -289,10 +289,10 @@ deptnoがnullのデータについて、deptno「10」を設定し、正しく�
 		1. emp1表の作成
 			1. empno, number(4), 主キー制約, 制約名：emp1_empno_pk
 			1. ename, varchar2(10), not null制約, 制約名：emp1_ename_nn
-			1. deptno, number(4), dept1(deptno)への外部キー（参照整合性）制約, 制約名：emp1_dept1_deptno_fk
+			1. deptno, number(4), departments(deptno)への外部キー（参照整合性）制約, 制約名：emp1_dept1_deptno_fk
 		1. 重複するempnoのデータを追加し、一意制約違反が発生すること
 		1. enameがnullのデータを追加し、nullは追加できない旨の制約違反が発生すること
-		1. deptnoにdept1表のdeptnoに存在しないデータを追加し、参照整合性制約違反が発生すること
+		1. deptnoにdepartments表のdeptnoに存在しないデータを追加し、参照整合性制約違反が発生すること
 		1. emp1表の削除
 		
 1. 2014/11/12
