@@ -337,15 +337,16 @@ where table_name = 'EMP3';
 			
 1. 2014/11/18
 
+	1. Sample.javaを各自のアカウントに変更して、動作確認
 	1. 以下の処理を行うJavaクラス（クラス名：Select1.class)を作成
 		1. 社員番号を入力させる(標準入力)
 		1. employees表（自己結合）とdepartments表を結合
-		1. 入力された社員番号で検索し、以下を標準出力
-			1. 番号：(empno)
-			1. 名前：(ename)
-			1. 職種：(job)
-			1. 上司：(ename)
-			1. 部署：(dname)
-			1. 場所：(loc)
-		1. 見つからない場合は以下を標準出力
-			1. 指定された社員番号の社員は存在しません
+		1. 以下を一覧表示する
+			1. empno(番号)
+			1. ename(名前)
+			1. job(職種)
+			1. ename(上司)
+			1. dname(部署)
+			1. loc(場所)
+	1. 上記のJavaクラスのデータベースへの問い合わせを以下通り変更したクラスを作成（クラス名：Select2.class)<br />
+executeQuery => prepareStatement  
