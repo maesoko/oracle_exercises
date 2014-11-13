@@ -310,6 +310,7 @@ as select empno, ename, sal, deptno from employees;<br />
 		1. 上記ビューを使用し、empnoが「1013」のsalを「300000」に変更 
 		1. 上記ビューを使用し、empno「1030」、ename「山口」、sal「200000」、deptno「null」のデータを追加
 		1. emp2を確認し、上記の削除／変更／追加が正常に行われていること確認
+		1. rollbackする
 		1. 上記ビューの削除
 
 1. 2014/11/13
