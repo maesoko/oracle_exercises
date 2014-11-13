@@ -323,10 +323,10 @@ as select empno, ename, sal, deptno from employees;<br />
 		1. s_ord順序を削除
 	1. 以下の操作を行うスクリプト(141113-2.sql)
 		1. departments表に対して、dept_sシノニムを作成
-		1. select文を実行し、dept1シノニムが正しく動作していることを確認
+		1. select文を実行し、dept_sシノニムが正しく動作していることを確認
 		1. dept_sシノニムを削除
 	1. (前提)以下を実行し、emp3表を作成<br />
-create table emp3(empno primary key, ename not null sal not null, deptno)<br />
+create table emp3(empno primary key, ename not null, sal, deptno)<br />
 as select empno, ename, sal, deptno from employees;<br />
 以下の操作を行うスクリプト(141113-3.sql)
 		1. emp3表のename列に対して、idx_emp3_ename索引を作成
