@@ -3,3 +3,6 @@
 setup.log
 afiedt.buf
 *.sh
+.idea/
+*.iml
+*.sh
