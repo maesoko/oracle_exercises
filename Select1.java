@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Select1 {
     private String _user = "s13012";
@@ -33,9 +34,40 @@ public class Select1 {
                     "FROM employees emp LEFT JOIN employees mgr\n" +
                     "ON (emp.mgr = mgr.empno)\n" +
                     "LEFT JOIN departments dept\n" +
-                    "ON (emp.deptno = dept.deptno)";
+                    "ON (emp.deptno = dept.deptno)\n" +
+                    "ORDER BY emp.empno";
 
             prepare = conn.prepareStatement(sql);
+            rs = prepare.executeQuery();
+
+            while (rs.next()) {
+                int emp_no = rs.getInt(1);
+                String ename = rs.getString(2);
+                String job = rs.getString(3);
+                String mgr_name = rs.getString(4);
+                String dname = rs.getString(5);
+                String loc = rs.getString(6);
+
+                System.out.printf("社員番号： %s\t社員名： %s\t職種： %s\t上司： %s\t部署名： %s\t場所： %s\n",
+                        emp_no, ename, job, mgr_name, dname, loc);
+            }
+
+            System.out.print("社員番号を入力してください: ");
+            int empNo = new Scanner(System.in).nextInt();
+
+            sql = "SELECT emp.empno, emp.ename, emp.job, mgr.ename, dept.dname, dept.loc," +
+                    "emp.sal, grd.grade\n" +
+                    "FROM employees emp LEFT JOIN employees mgr\n" +
+                    "ON (emp.mgr = mgr.empno)\n" +
+                    "LEFT JOIN departments dept\n" +
+                    "ON (emp.deptno = dept.deptno)\n" +
+                    "LEFT JOIN salgrades grd \n" +
+                    "ON emp.sal BETWEEN grd.losal AND grd.hisal\n" +
+                    "WHERE emp.empno = ?\n" +
+                    "ORDER BY emp.empno";
+
+            prepare = conn.prepareStatement(sql);
+            prepare.setInt(1, empNo);
             rs = prepare.executeQuery();
 
             while (rs.next()) {
@@ -46,9 +78,12 @@ public class Select1 {
                 String mgr_name = rs.getString(4);
                 String dname = rs.getString(5);
                 String loc = rs.getString(6);
+                int sal = rs.getInt(7);
+                String sal_grade = rs.getString(8);
 
-                System.out.printf("社員番号： %s\t社員名： %s\t職種： %s\t上司の名前： %s\t部署名： %s\t場所： %s\n",
-                        emp_no, ename, job, mgr_name, dname, loc);
+                System.out.printf("社員番号： %s\t社員名： %s\t職種： %s\t上司： %s\t部署名： %s\t場所： %s" +
+                                "\t給与： %s\t等級： %s\n",
+                        emp_no, ename, job, mgr_name, dname, loc, sal, sal_grade);
             }
 
             if (!empIsExists) {
