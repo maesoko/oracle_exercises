@@ -4,3 +4,4 @@ afiedt.buf
 *.sh
 .idea/
 *.iml
+out/
