@@ -1,8 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Select1 {
     private String _user = "s13012";
@@ -24,6 +20,7 @@ public class Select1 {
         Connection conn = null;
         Statement st = null;
         ResultSet rs = null;
+        PreparedStatement prepare = null;
         boolean empIsExists = false;
 
         try {
@@ -38,9 +35,8 @@ public class Select1 {
                     "LEFT JOIN departments dept\n" +
                     "ON (emp.deptno = dept.deptno)";
 
-            st = conn.createStatement();
-            rs = st.executeQuery(sql);
-
+            prepare = conn.prepareStatement(sql);
+            rs = prepare.executeQuery();
 
             while (rs.next()) {
                 empIsExists = true;
@@ -66,16 +62,23 @@ public class Select1 {
         } catch (Exception e) {
             throw e;
         } finally {
-            if (conn != null) {
-                conn.close();
+            if (rs != null) {
+                rs.close();
+                rs = null;
             }
+
+            if (prepare != null) {
+                prepare.close();
+                prepare = null;
+            }
+
             if (st != null) {
                 st.close();
                 st = null;
             }
-            if (rs != null) {
-                rs.close();
-                rs = null;
+
+            if (conn != null) {
+                conn.close();
             }
         }
     }
