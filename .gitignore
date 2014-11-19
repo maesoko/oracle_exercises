@@ -5,3 +5,4 @@ afiedt.buf
 .idea/
 *.iml
 out/
+*.class
