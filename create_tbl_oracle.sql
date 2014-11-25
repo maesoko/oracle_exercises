@@ -67,6 +67,12 @@ INSERT INTO employees VALUES
 INSERT INTO employees VALUES
 	(1014,'佐々木','sasaki','事務',1008,to_date('2004-05-02','yyyy-mm-dd'),230000,NULL,10);
 
+alter table employees
+add constraint fk_mgr
+foreign key(mgr)
+references employees(empno);
+
+
 CREATE TABLE salgrades
       ( grade CHAR(1) CONSTRAINT pk_grade PRIMARY KEY,
 	losal NUMBER(7),
