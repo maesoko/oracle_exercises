@@ -33,7 +33,7 @@ public class Delete1 {
             System.out.print("社員番号を入力してください: ");
             int empNo = new Scanner(System.in).nextInt();
 
-            sql = "SELECT empno, ename FROM emp_copy WHERE empno = ?";
+            sql = "SELECT empno, ename FROM employees WHERE empno = ?";
 
             prepare = conn.prepareStatement(sql);
             prepare.setInt(1, empNo);
@@ -55,7 +55,7 @@ public class Delete1 {
                 System.out.println("レコードがありません。");
             }
 
-            sql = "SELECT ename FROM emp_copy WHERE mgr = ?";
+            sql = "SELECT ename FROM employees WHERE mgr = ?";
 
             prepare = conn.prepareStatement(sql);
             prepare.setInt(1, empNo);
@@ -78,15 +78,15 @@ public class Delete1 {
                 String deleteConfirm = new Scanner(System.in).next();
 
                 if (deleteConfirm.equals("yes")) {
-                    if (subordinateIsExists) {
-                        System.out.println("部下が存在する為、レコードを削除できませんでした。");
-                    } else {
-                        sql = "DELETE FROM emp_copy WHERE empno = ?";
+                    try {
+                        sql = "DELETE FROM employees WHERE empno = ?";
                         prepare = conn.prepareStatement(sql);
                         prepare.setInt(1, empNo);
                         prepare.executeQuery();
 
                         System.out.println("レコードを削除しました。");
+                    } catch (SQLIntegrityConstraintViolationException e) {
+                        System.out.println("部下が存在する為、レコードを削除できません。");
                     }
                 } else if (!deleteConfirm.equals("no")) {
                     System.out.println("入力された値が不正です。");
