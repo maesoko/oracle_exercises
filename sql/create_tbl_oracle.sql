@@ -23,7 +23,7 @@ CREATE TABLE employees
 	ename VARCHAR2(10),
 	yomi VARCHAR2(20),
 	job VARCHAR2(8),
-	mgr NUMBER(4),
+	mgr NUMBER(4) CONSTRAINT fk_mgr REFERENCES employees(empno),
 	hiredate DATE,
 	sal NUMBER(7),
 	comm NUMBER(7),
