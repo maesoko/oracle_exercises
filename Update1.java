@@ -1,7 +1,5 @@
 import java.sql.*;
-import java.util.InputMismatchException;
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Update1 {
     private String _user = "s13012";
@@ -28,15 +26,15 @@ public class Update1 {
         boolean isMismatch = false;
         String sql;
         ResultSetMetaData metaData = null;
-        LinkedHashMap<Object, Object> empMap = new LinkedHashMap<Object, Object>();
+        Map<Object, Object> empMap = new LinkedHashMap<Object, Object>();
 
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             conn = DriverManager.getConnection(
                     "jdbc:oracle:thin:@" + _host + ":1521:" + _sid, _user, _pass);
 
-            System.out.print("社員番号を入力してください: ");
             int empNo = 0;
+            System.out.print("社員番号を入力してください: ");
             try {
                 empNo = new Scanner(System.in).nextInt();
             } catch (InputMismatchException e) {
@@ -78,7 +76,7 @@ public class Update1 {
                         if (updateConfirm.equals("yes")) {
                             System.out.print(column + " = ");
                             Object newValue = new Scanner(System.in).nextLine();
-                            empMap.replace(column, newValue);
+                            empMap.put(column, newValue);
                             isUpdated = true;
                         }
                     }
