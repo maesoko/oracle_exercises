@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
@@ -24,8 +25,9 @@ public class Update1 {
         PreparedStatement prepare = null;
         boolean employeesExists = false;
         boolean isUpdated = false;
+        boolean isMismatch = false;
         String sql;
-        ResultSetMetaData metaData;
+        ResultSetMetaData metaData = null;
         LinkedHashMap<Object, Object> empMap = new LinkedHashMap<Object, Object>();
 
         try {
@@ -34,72 +36,92 @@ public class Update1 {
                     "jdbc:oracle:thin:@" + _host + ":1521:" + _sid, _user, _pass);
 
             System.out.print("社員番号を入力してください: ");
-            int empNo = new Scanner(System.in).nextInt();
-
-            sql = "SELECT ename, yomi, job, mgr, hiredate, sal, comm, deptno\n" +
-                    "FROM employees WHERE empno = ?";
-
-            prepare = conn.prepareStatement(sql);
-            prepare.setInt(1, empNo);
-            rs = prepare.executeQuery();
-            metaData = rs.getMetaData();
-
-            int counter = 0;
-            while (rs.next()) {
-                employeesExists = true;
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getDate(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
-                empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+            int empNo = 0;
+            try {
+                empNo = new Scanner(System.in).nextInt();
+            } catch (InputMismatchException e) {
+                System.err.println("社員番号の値が不正です。");
+                isMismatch = true;
             }
 
-            if (employeesExists) {
-                for (int i = 1; i <= empMap.size(); i++) {
-                    String column = metaData.getColumnName(i);
-                    Object field = empMap.get(metaData.getColumnName(i));
-                    System.out.println(column + ": " + field);
+            if (!isMismatch) {
+                sql = "SELECT ename, yomi, job, mgr, hiredate, sal, comm, deptno\n" +
+                        "FROM employees WHERE empno = ?";
 
-                    System.out.print("変更しますか? (yes/no): ");
+                prepare = conn.prepareStatement(sql);
+                prepare.setInt(1, empNo);
+                rs = prepare.executeQuery();
+                metaData = rs.getMetaData();
 
-                    String updateConfirm = new Scanner(System.in).nextLine();
-                    if (updateConfirm.equals("yes")) {
-                        System.out.print(column + " = ");
-                        Object newValue = new Scanner(System.in).nextLine();
-                        empMap.replace(column, newValue);
-                        isUpdated = true;
-                    }
+                int counter = 0;
+                while (rs.next()) {
+                    employeesExists = true;
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getDate(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
+                    empMap.put(metaData.getColumnName(++counter), rs.getObject(counter));
                 }
 
-                if (isUpdated) {
-                    sql = "UPDATE employees\n" +
-                            "SET ename = ?, yomi = ?, job = ?, mgr = ?, hiredate = ?, sal = ?," +
-                            "comm = ?, deptno = ?\n" +
-                            "WHERE empno = " + empNo;
-
-                    prepare = conn.prepareStatement(sql);
-
-                    for (int i = 1; i <= empMap.size(); i++) {
-                        Object newField = metaData.getColumnName(i);
-                        prepare.setObject(i, empMap.get(newField));
-                    }
-
-                    prepare.executeQuery();
-
-                    System.out.println("\n▼ 以下のように更新しました。 ▼");
+                if (employeesExists) {
                     for (int i = 1; i <= empMap.size(); i++) {
                         String column = metaData.getColumnName(i);
                         Object field = empMap.get(metaData.getColumnName(i));
                         System.out.println(column + ": " + field);
-                    }
-                }
-            } else {
-                System.out.println("レコードがありません。");
-            }
 
+                        System.out.print("変更しますか? (yes/no): ");
+
+                        String updateConfirm = new Scanner(System.in).nextLine();
+                        if (updateConfirm.equals("yes")) {
+                            System.out.print(column + " = ");
+                            Object newValue = new Scanner(System.in).nextLine();
+                            empMap.replace(column, newValue);
+                            isUpdated = true;
+                        }
+                    }
+
+                    if (isUpdated) {
+                        sql = "UPDATE employees\n" +
+                                "SET ename = ?, yomi = ?, job = ?, mgr = ?, hiredate = ?, sal = ?," +
+                                "comm = ?, deptno = ?\n" +
+                                "WHERE empno = " + empNo;
+
+                        prepare = conn.prepareStatement(sql);
+
+                        for (int i = 1; i <= empMap.size(); i++) {
+                            Object newField = metaData.getColumnName(i);
+                            prepare.setObject(i, empMap.get(newField));
+                        }
+
+                        try {
+                            prepare.executeQuery();
+                        } catch (SQLIntegrityConstraintViolationException e) {
+                            System.err.println(e.getMessage());
+                            isUpdated = false;
+                        } catch (SQLDataException e) {
+                            isUpdated = false;
+                            System.err.println(e.getMessage());
+                        } catch (SQLSyntaxErrorException e) {
+                            isUpdated = false;
+                            System.err.println(e.getMessage());
+                        }
+
+                        if (isUpdated) {
+                            System.out.println("\n▼ 社員番号" + empNo + "を以下のように更新しました。 ▼");
+                            for (int i = 1; i <= empMap.size(); i++) {
+                                String column = metaData.getColumnName(i);
+                                Object field = empMap.get(metaData.getColumnName(i));
+                                System.out.println(column + ": " + field);
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("レコードがありません。");
+                }
+            }
 
         } catch (ClassNotFoundException e) {
             throw e;
